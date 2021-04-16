@@ -81,6 +81,7 @@ void CPUscheduler::terminate_children(PCB process)
 		}
 		for(int j = 0; j < IOqueue.size(); j++)
 		{
+			//std::vector<PCB> temp;
 			for(auto k : IOqueue[j])
 			{
 				if(k == process.childrenPID[i])
@@ -88,10 +89,15 @@ void CPUscheduler::terminate_children(PCB process)
 					terminate_children(k);
 					memory.deallocate(k.PID);
 					terminated.push_back(k);
-					IOqueue[i].remove(k);
+					//temp.push_back(k);
+					IOqueue[j].remove(k);
 					break;
 				}
 			}
+			/*for(auto k : temp)
+			{
+				IOqueue[j].remove(k);
+			}*/
 		}
 		//Remove this comment once you handle the PCBs in wait and zombies
 	}
